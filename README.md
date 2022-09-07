@@ -1,5 +1,9 @@
 # **Kodlama.io Devs Project**
 
-Kodlama.io Senior Yazılım Geliştirici Yetiştirme Kampı (.NET) ile başladığım bir proje çalışmasıdır.
+Kodlama.io Senior YazÄ±lÄ±m GeliÅŸtirici YetiÅŸtirme KampÄ± (.NET) ile baÅŸladÄ±ÄŸÄ±mm bir proje Ã§alÄ±ÅŸmasÄ±dÄ±r.
 
 ![image](./kodlama.png)
+
+# **ONION ARCHITECTURE**
+
+![image](./kodlama2.png)
