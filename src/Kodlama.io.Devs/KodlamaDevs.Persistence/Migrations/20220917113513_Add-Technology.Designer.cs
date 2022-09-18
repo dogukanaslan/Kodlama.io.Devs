@@ -4,6 +4,7 @@ using KodlamaDevs.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KodlamaDevs.Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220917113513_Add-Technology")]
+    partial class AddTechnology
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,31 +160,6 @@ namespace KodlamaDevs.Persistence.Migrations
                     b.ToTable("UserOperationClaims", (string)null);
                 });
 
-            modelBuilder.Entity("KodlamaDevs.Domain.Entities.GitHubProfile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int")
-                        .HasColumnName("MemberId");
-
-                    b.Property<string>("ProfileURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ProfileURL");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("GitHubProfiles", (string)null);
-                });
-
             modelBuilder.Entity("KodlamaDevs.Domain.Entities.ProgrammingLanguage", b =>
                 {
                     b.Property<int>("Id")
@@ -227,13 +204,6 @@ namespace KodlamaDevs.Persistence.Migrations
                     b.ToTable("Technologies", (string)null);
                 });
 
-            modelBuilder.Entity("KodlamaDevs.Domain.Entities.Member", b =>
-                {
-                    b.HasBaseType("Core.Security.Entities.User");
-
-                    b.ToTable("Members", (string)null);
-                });
-
             modelBuilder.Entity("Core.Security.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Core.Security.Entities.User", "User")
@@ -264,17 +234,6 @@ namespace KodlamaDevs.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KodlamaDevs.Domain.Entities.GitHubProfile", b =>
-                {
-                    b.HasOne("KodlamaDevs.Domain.Entities.Member", "Member")
-                        .WithMany("GitHubProfiles")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Member");
-                });
-
             modelBuilder.Entity("KodlamaDevs.Domain.Entities.Technology", b =>
                 {
                     b.HasOne("KodlamaDevs.Domain.Entities.ProgrammingLanguage", "ProgrammingLanguage")
@@ -284,15 +243,6 @@ namespace KodlamaDevs.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("ProgrammingLanguage");
-                });
-
-            modelBuilder.Entity("KodlamaDevs.Domain.Entities.Member", b =>
-                {
-                    b.HasOne("Core.Security.Entities.User", null)
-                        .WithOne()
-                        .HasForeignKey("KodlamaDevs.Domain.Entities.Member", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Security.Entities.User", b =>
@@ -305,11 +255,6 @@ namespace KodlamaDevs.Persistence.Migrations
             modelBuilder.Entity("KodlamaDevs.Domain.Entities.ProgrammingLanguage", b =>
                 {
                     b.Navigation("Technologies");
-                });
-
-            modelBuilder.Entity("KodlamaDevs.Domain.Entities.Member", b =>
-                {
-                    b.Navigation("GitHubProfiles");
                 });
 #pragma warning restore 612, 618
         }

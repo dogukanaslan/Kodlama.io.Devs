@@ -1,7 +1,11 @@
 ﻿
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Validation;
 using FluentValidation;
+using KodlamaDevs.Application.Features.Auth.Rules;
+using KodlamaDevs.Application.Features.GitHubProfiles.Rules;
 using KodlamaDevs.Application.Features.ProgrammingLanguages.Rules;
+using KodlamaDevs.Application.Features.Technologies.Rules;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,9 +26,12 @@ namespace KodlamaDevs.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<ProgrammingLanguageBusinessRules>();
+            services.AddScoped<AuthBusinessRules>();
+            services.AddScoped<TechnologyBusinessRules>();
+            services.AddScoped<GitHubProfileBusinessRules>();
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheRemovingBehavior<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
