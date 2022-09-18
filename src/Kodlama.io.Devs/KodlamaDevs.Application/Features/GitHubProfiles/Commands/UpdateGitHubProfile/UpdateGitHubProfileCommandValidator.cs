@@ -12,7 +12,6 @@ namespace KodlamaDevs.Application.Features.GitHubProfiles.Commands.UpdateGitHubP
         public UpdateGitHubProfileCommandValidator()
         {
             RuleFor(x=>x.ProfileURL).NotEmpty();
-            RuleFor(x=>x.MemberId).NotEmpty();
         }
     }
 }

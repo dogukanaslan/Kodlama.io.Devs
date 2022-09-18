@@ -16,7 +16,6 @@ namespace KodlamaDevs.Application.Features.GitHubProfiles.Commands.UpdateGitHubP
     public class UpdateGitHubProfileCommand:IRequest<UpdatedGitHubProfileDto>
     {
         public int Id { get; set; }
-        public int MemberId { get; set; }
         public string? ProfileURL { get; set; }
 
         public class UpdatedGitHubProfileCommandHandler : IRequestHandler<UpdateGitHubProfileCommand, UpdatedGitHubProfileDto>
@@ -36,9 +35,12 @@ namespace KodlamaDevs.Application.Features.GitHubProfiles.Commands.UpdateGitHubP
             {
                 await _gitHubProfileBusinessRules.GitHubProfileURLCanNotBeDuplicatedWhenInsertedOrUpdated(request.ProfileURL);
 
-                GitHubProfile? gitHubProfile = await _gitHubProfileRepository.GetAsync(x => x.Id == request.Id);
-                GitHubProfile updatedGitHubProfile = await _gitHubProfileRepository.UpdateAsync(gitHubProfile);
+                GitHubProfile gitHubProfile = await _gitHubProfileRepository.GetAsync(g => g.Id == request.Id);
+
+                GitHubProfile updatedGitHubProfile = await _gitHubProfileRepository.UpdateAsync(_mapper.Map(request, gitHubProfile));
+
                 UpdatedGitHubProfileDto updatedGitHubProfileDto = _mapper.Map<UpdatedGitHubProfileDto>(updatedGitHubProfile);
+
                 return updatedGitHubProfileDto;
             }
         }

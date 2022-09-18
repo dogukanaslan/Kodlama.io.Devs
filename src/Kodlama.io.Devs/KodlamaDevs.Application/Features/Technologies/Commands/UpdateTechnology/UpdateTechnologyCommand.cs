@@ -38,7 +38,7 @@ namespace KodlamaDevs.Application.Features.Technologies.Commands.UpdateTechnolog
                 await _technologyBusinessRules.TechnologyNameCanNotBeDuplicatedWhenInsertedOrUpdated(request.Name);
 
                 Technology? technology = await _technologyRepository.GetAsync(p => p.Id == request.Id);
-                Technology updatedTechnology = await _technologyRepository.UpdateAsync(technology!);
+                Technology updatedTechnology = await _technologyRepository.UpdateAsync(_mapper.Map(request, technology));
                 UpdatedTechnologyDto updatedTechnologyDto = _mapper.Map<UpdatedTechnologyDto>(updatedTechnology);
                 return updatedTechnologyDto;
             }

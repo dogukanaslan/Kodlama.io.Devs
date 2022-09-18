@@ -36,7 +36,7 @@ namespace KodlamaDevs.Application.Features.ProgrammingLanguages.Commands.UpdateP
                 await _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenUpdated(request.Id, request.Name);
 
                 ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
-                ProgrammingLanguage updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(programmingLanguage);
+                ProgrammingLanguage updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(_mapper.Map(request, programmingLanguage));
                 UpdatedProgrammingLanguageDto updatedProgrammingLanguageDto = _mapper.Map<UpdatedProgrammingLanguageDto>(updatedProgrammingLanguage);
                 return updatedProgrammingLanguageDto;
             }
